@@ -1,6 +1,6 @@
 /*
 
-trackr.js
+trackr.js - the bulk of the code for the Trackr Safari extensions.
 
 */
 
@@ -36,8 +36,34 @@ function onTwitter() {
 	return false;
 }
 
+
+/* YouTube-checking functions */
+function onYouTubeVideoPage() {
+	if (document.location.toString().indexOf("youtube.com/watch?") != -1) {
+		return true;
+	}
+	return false;
+}
+
+/* Flickr-checking functions */
+
+function onFlickrPhotoPage() {
+	if (document.location.toString().indexOf("flickr.com/photos/") != -1) {
+		return true;
+	}
+	return false;
+}
+
+function onFacebookConnectPage() {
+	if ($(".connect_widget_like_button").size() > 0) {
+		return true;
+	}
+	return false;
+}
+
 function showMyForm() {
 	alert("Hey. You just liked something!");
+	//window.open("")
 }
 
 $(document).ready(function() {
@@ -53,8 +79,14 @@ $(document).ready(function() {
 		$(".favorite-action").foreach(function() {
 			$(this).click(showMyForm);
 		})
+	} else if (onYouTubeVideoPage()) {
+		$("#watch-like").click(showMyForm);
+	} else if (onFlickrPhotoPage()) {
+		$("button-bar-fave").click(showMyForm);
+	} else if (onFacebookConnectPage()) {
+		alert("on facebook connect page");
+		$(".connect_widget_like_button").click(showMyForm);
 	}
-	
 });
 
 
