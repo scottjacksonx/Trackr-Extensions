@@ -1,0 +1,1 @@
+This is a browser extension that listens for clicks on Like buttons across various sites and asks the user why they Liked what they just Liked.
