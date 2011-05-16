@@ -1,0 +1,12 @@
+{
+	"name": "Trackr",
+	"version": "1.0",
+	"description": "Trackr asks you why you Like things.",
+	"content_scripts": [
+		{
+			"matches": ["http://*/*"],
+			"js": ["jquery.min.js", "trackr.js"],
+			"run_at": "document_start"
+		}
+	]
+}
