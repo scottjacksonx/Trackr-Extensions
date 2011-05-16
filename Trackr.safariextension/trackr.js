@@ -13,10 +13,14 @@ function onTumblrDashboard() {
 }
 
 function onTumblrPost() {
-	if ($("iframe").last().attr("src").toString().indexOf("http://assets.tumblr.com/iframe.html") != -1) {
-		return true;
+	try {
+		if ($("iframe").last().attr("src").toString().indexOf("http://assets.tumblr.com/iframe.html") != -1) {
+			return true;
+		}
+		return false;
+	} catch(error) {
+		return false;
 	}
-	return false;
 }
 
 /* Twitter-checking functions */
@@ -27,10 +31,9 @@ a user's profile, or the page for an individual tweet. As a result, we only need
 one function to check whether the current location is a Twitter page.
 */
 function onTwitter() {
-
 	if (document.location.toString() == "http://twitter.com" ||
 	    	document.location.toString() == "http://www.twitter.com" ||
-	    	document.location.toString() == "http://twitter.com/#/") {
+	    	document.location.toString() == "http://twitter.com/#!/") {
 		return true;
 	}
 	return false;
@@ -55,7 +58,25 @@ function onFlickrPhotoPage() {
 }
 
 function onFacebookConnectPage() {
-	if ($(".connect_widget_like_button").size() > 0) {
+	/*$("iframe").foreach(function() {
+		alert("iframe");
+		if ($(this).attr("src").toString().indexOf("http://www.facebook.com/plugins/like.php")) {
+			return true;
+		}
+	});
+	return false;*/
+	try {
+		$("iframe").foreach(function() {
+			alert("iframe");
+			return true;
+		});
+	} catch(error) {
+		return false;
+	}
+}
+
+function onReddit() {
+	if (document.location.toString().indexOf("reddit.com") != -1) {
 		return true;
 	}
 	return false;
@@ -63,7 +84,7 @@ function onFacebookConnectPage() {
 
 function showMyForm() {
 	alert("Hey. You just liked something!");
-	//window.open("")
+	window.open("http://localhost:8080", "width=350,height=250");
 }
 
 $(document).ready(function() {
@@ -86,6 +107,9 @@ $(document).ready(function() {
 	} else if (onFacebookConnectPage()) {
 		alert("on facebook connect page");
 		$(".connect_widget_like_button").click(showMyForm);
+	} else if (onReddit()) {
+		alert("on reddit");
+		$(".arrow.up").click(showMyForm);
 	}
 });
 
