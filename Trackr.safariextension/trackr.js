@@ -83,7 +83,8 @@ function onReddit() {
 }
 
 function showMyForm() {
-	window.open("http://trackr.scottjackson.org/like", "width=720,height=500");
+	window.open("http://trackr.scottjackson.org/like", "_blank", "toolbar=no, menubar=no, scrollbars=no, resizable=no, width=720, height=500");
+	
 }
 
 $(document).ready(function() {
